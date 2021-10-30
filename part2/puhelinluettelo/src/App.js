@@ -37,7 +37,7 @@ const App = () => {
         personService
           .update(changedPerson.id, changedPerson)
           .then(returnedData => {
-            setPersons(persons.map(person => person.name !== newName ? person : returnedData))
+            setPersons(persons.map(person => person.name !== newName ? person : changedPerson))
             setIsError(false)
             handleNotificationShow(`Updated ${returnedData.name}`)
           })
@@ -60,6 +60,9 @@ const App = () => {
         setNewNumber('')
         setIsError(false)
         handleNotificationShow(`Added ${returnedPerson.name}`)
+      }).catch(error => {
+        setIsError(true)
+        handleNotificationShow(`${error.response.data.error}`)
       })
   }
 
