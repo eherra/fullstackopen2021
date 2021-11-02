@@ -10,10 +10,10 @@ const favoriteBlog = (blogs) => {
     let maxLikes = 0;
     let maxLikedObject = blogs[0]
 
-    for (let i = 1; i < blogs.length; i++) {
-        if (blogs[i].likes > maxLikes) {
-            maxLikes = blogs[i].likes
-            maxLikedObject = blogs[i]
+    for (let blog of blogs) {
+        if (blog.likes > maxLikes) {
+            maxLikes = blog.likes
+            maxLikedObject = blog
         }
     }
 
@@ -27,11 +27,11 @@ const favoriteBlog = (blogs) => {
 const mostBlogs = (blogs) => {
     let blogMap = new Map()
 
-    for (let i = 0; i < blogs.length; i++) {
-        if (blogMap.has(blogs[i].author)) {
-            blogMap.set(blogs[i].author, blogMap.get(blogs[i].author) + 1)
+    for (let blog of blogs) {
+        if (blogMap.has(blog.author)) {
+            blogMap.set(blog.author, blogMap.get(blog.author) + 1)
         } else {
-            blogMap.set(blogs[i].author, 1)
+            blogMap.set(blog.author, 1)
         }
     }
     const values = [...blogMap.entries()].reduce((a, e) => e[1] > a[1] ? e : a)
