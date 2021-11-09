@@ -21,12 +21,18 @@ const create = async newObject => {
   return response.data
 }
 
-const update = async (updateObject, blogId) => {
+const update = async (updatedBlog, oldBlog) => {
   const config = {
     headers: { Authorization: token },
   }
 
-  const response = await axios.put(`${baseUrl}/${blogId}`, updateObject, config)
+  const response = await axios.put(`${baseUrl}/${oldBlog.id}`, updatedBlog, config)
+
+  // adding user data from the old blog
+  response.data.user = {
+    username: oldBlog.user.username,
+    name: oldBlog.user.name
+  }
   return response.data
 }
 

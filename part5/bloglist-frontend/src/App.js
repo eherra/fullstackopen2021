@@ -78,13 +78,11 @@ const App = () => {
   }
 
   const blogsView = () => {
-    blogs.sort(function (a, b) {
-      return b.likes - a.likes
-    })
+    blogs.sort((a, b) => b.likes - a.likes)
     return (
       <div>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} user={user} handleDelete={handleDelete} handleLike={handleLike} />
         )}
       </div>
     )}
@@ -137,6 +135,46 @@ const App = () => {
       setTimeout(() => {
         setNotificationMessage(null)
       }, 5000)
+    }
+  }
+
+  const handleDelete = async (event, blog) => {
+    event.preventDefault()
+
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      try {
+        await blogService.remove(blog.id)
+        setBlogs(blogs.filter(b => b.id !== blog.id))
+        setIsError(false)
+        setNotificationMessage('the blog was deleted succesfully')
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
+      } catch (exception) {
+        setIsError(true)
+        setNotificationMessage('blog deleting didnt go thru')
+        setTimeout(() => {
+          setNotificationMessage(null)
+        }, 5000)
+      }
+    }
+  }
+
+  const handleLike = async (event, blog) => {
+    event.preventDefault()
+    try {
+      const returnedBlog = await blogService.update({
+        author: blog.author,
+        title: blog.title,
+        url: blog.url,
+        user: blog.user.id,
+        likes: blog.likes + 1
+      }, blog)
+      const updatedBlogs = blogs.map(b => b.id !== blog.id ? b : returnedBlog)
+      updatedBlogs.sort((a, b) => b.likes - a.likes)
+      setBlogs(updatedBlogs)
+    } catch (exception) {
+      console.log(exception)
     }
   }
 

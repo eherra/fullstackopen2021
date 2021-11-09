@@ -1,42 +1,12 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLike, handleDelete }) => {
   const [visible, setVisible] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
 
   const showWhenVisible = { display: visible ? '' : 'none' }
 
   const toggleVisibility = () => {
     setVisible(!visible)
-  }
-
-  const handleRemove = async (event) => {
-    event.preventDefault()
-    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
-      try {
-        await blogService.remove(blog.id)
-
-      } catch (exception) {
-        console.log(exception)
-      }
-    }
-  }
-
-  const handleLike = async (event) => {
-    event.preventDefault()
-    try {
-      await blogService.update({
-        user: blog.user.id,
-        likes: blog.likes + 1,
-        author: blog.author,
-        title: blog.title,
-        url: blog.url,
-      }, blog.id)
-      setLikes(() => blog.likes + 1)
-    } catch (exception) {
-      console.log(exception)
-    }
   }
 
   const blogStyle = {
@@ -50,6 +20,7 @@ const Blog = ({ blog }) => {
   const showRemoveButton = JSON.parse(window.localStorage.getItem('loggedBlogappUser')).username === blog.user.username
 
   const buttonText = visible ? 'hide' : 'view'
+
   return (
     <div style={blogStyle}>
       <div>
@@ -57,13 +28,13 @@ const Blog = ({ blog }) => {
       </div>
       <div style={showWhenVisible}>
         {blog.url}<br/>
-        likes {likes} <button onClick={handleLike}>like</button><br/>
+        likes {blog.likes} <button onClick={e => handleLike(e, blog)}>like</button><br/>
         {blog.user.name}<br/>
         {showRemoveButton &&
-          <button onClick={handleRemove}>remove</button>
-        }
+          <button onClick={e => handleDelete(e, blog)}>remove</button>}
       </div>
     </div>
-  )}
+  )
+}
 
 export default Blog
