@@ -60,7 +60,6 @@ const App = () => {
   )
 
   const blogFormRef = useRef()
-
   const addBlogForm = () => {
     return (
       <Togglable buttonLabel='new blog' ref={blogFormRef}>
@@ -77,12 +76,20 @@ const App = () => {
     )
   }
 
+  const handleNotificationShow = (message, isErrorMessage) => {
+    setIsError(isErrorMessage)
+    setNotificationMessage(message)
+    setTimeout(() => {
+      setNotificationMessage(null)
+    }, 4000)
+  }
+
   const blogsView = () => {
     blogs.sort((a, b) => b.likes - a.likes)
     return (
       <div>
         {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog} user={user} handleDelete={handleDelete} handleLike={handleLike} />
+          <Blog key={blog.id} blog={blog} handleDelete={handleDelete} handleLike={handleLike} />
         )}
       </div>
     )}
@@ -102,11 +109,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setIsError(true)
-      setNotificationMessage('wrong username or password')
-      setTimeout(() => {
-        setNotificationMessage(null)
-      }, 5000)
+      handleNotificationShow('wrong username or password', true)
     }
   }
 
@@ -122,19 +125,10 @@ const App = () => {
       setAuthor('')
       setUrl('')
       setBlogs(blogs.concat(blog))
-      setIsError(false)
-      setNotificationMessage(`a new blog ${title} by ${author} added`)
-      setTimeout(() => {
-        setNotificationMessage(null)
-      }, 5000)
+      handleNotificationShow(`a new blog ${title} by ${author} added`, false)
       blogFormRef.current.toggleVisibility()
     } catch (exception) {
-      console.log(exception)
-      setIsError(true)
-      setNotificationMessage('blog adding didnt work')
-      setTimeout(() => {
-        setNotificationMessage(null)
-      }, 5000)
+      handleNotificationShow('blog adding didnt work', true)
     }
   }
 
@@ -145,17 +139,9 @@ const App = () => {
       try {
         await blogService.remove(blog.id)
         setBlogs(blogs.filter(b => b.id !== blog.id))
-        setIsError(false)
-        setNotificationMessage('the blog was deleted succesfully')
-        setTimeout(() => {
-          setNotificationMessage(null)
-        }, 5000)
+        handleNotificationShow('the blog was deleted succesfully', false)
       } catch (exception) {
-        setIsError(true)
-        setNotificationMessage('blog deleting didnt go thru')
-        setTimeout(() => {
-          setNotificationMessage(null)
-        }, 5000)
+        handleNotificationShow('blog deleting didnt go thru', true)
       }
     }
   }
@@ -169,22 +155,25 @@ const App = () => {
         url: blog.url,
         user: blog.user.id,
         likes: blog.likes + 1
-      }, blog)
+      }, blog.id)
+
+      // adding user data from the old blog
+      returnedBlog.user = {
+        username: blog.user.username,
+        name: blog.user.name
+      }
+
       const updatedBlogs = blogs.map(b => b.id !== blog.id ? b : returnedBlog)
-      updatedBlogs.sort((a, b) => b.likes - a.likes)
       setBlogs(updatedBlogs)
     } catch (exception) {
-      console.log(exception)
+      handleNotificationShow('adding like didnt go thru', true)
     }
   }
 
   const handleLogout = (event) => {
     event.preventDefault()
-
     window.localStorage.clear()
     setUser(null)
-    setUsername('')
-    setPassword('')
   }
 
   return (
