@@ -1,3 +1,5 @@
+let isTimeoutRunning
+
 const notificationReducer = (state = null, action) => {
     switch (action.type) {
       case 'SET_NOTIFICATION':
@@ -9,11 +11,21 @@ const notificationReducer = (state = null, action) => {
     }
 }
 
-export const setNotification = notification => {
-    return {
-        type: 'SET_NOTIFICATION',
-        notification,
+export const setNotification = (notification, timeInSeconds) => {
+  return async dispatch => {
+    await dispatch({
+      type: 'SET_NOTIFICATION',
+      notification,
+    })
+
+    if (isTimeoutRunning) {
+      clearTimeout(isTimeoutRunning)
     }
+
+    isTimeoutRunning = setTimeout(() => {
+      dispatch(removeNotification())
+    }, timeInSeconds*1000)  
+  }
 }
 
 export const removeNotification = () => {
