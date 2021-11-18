@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
-import storage from '../utils/storage'
-import { logoutUser } from '../reducers/userReducer'
+import storage from '../../utils/storage'
+import { logoutUser } from '../../reducers/userReducer'
 import {
     useNavigate, Link
   } from "react-router-dom"

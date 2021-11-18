@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createBlog } from '../reducers/blogReducer'
+import { createBlog } from '../../reducers/blogReducer'
+import { setNotification } from '../../reducers/notificationReducer'
 
-const NewBlog = (props) => {
+const NewBlog = ({blogFormRef}) => {
   const dispatch = useDispatch()
 
   const [title, setTitle] = useState('')
@@ -16,11 +17,17 @@ const NewBlog = (props) => {
       dispatch(createBlog({
         title, author, url
       }))
-      props.blogFormRef.current.toggleVisibility()
-      props.notifyWith(`a new blog '${title}' by ${author} added!`)
+      
+      blogFormRef.current.toggleVisibility()
+      dispatch(setNotification({
+        message: `a new blog '${title}' by ${author} added!`, 
+        type: 'success'
+      }))
     } catch (exception) {
-      props.notifyWith(`blog adding didnt go thru`, 'error')
-      console.log(exception)
+      dispatch(setNotification({
+        message: `blog adding didnt go thru`, 
+        type: 'error'
+      }))
     }
     setTitle('')
     setAuthor('')

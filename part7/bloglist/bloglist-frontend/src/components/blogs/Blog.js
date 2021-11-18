@@ -5,7 +5,6 @@ import {
 } from "react-router-dom"
 
 const Blog = ({ blog }) => {
-
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -13,7 +12,7 @@ const Blog = ({ blog }) => {
     borderWidth: 1,
     marginBottom: 5
   }
-  console.log(blog)
+
   return (
     <div style={blogStyle} className='blog'>
       <Link to={`/blogs/${blog.id}`}>{blog.title} by {blog.author}</Link>

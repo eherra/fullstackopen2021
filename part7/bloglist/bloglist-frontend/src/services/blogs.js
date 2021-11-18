@@ -20,9 +20,6 @@ const getBlogCommentsByBlogId = async (blogId) => {
 }
 
 const addBlogComment = async (content, blogId) => {
-  console.log(content)
-  console.log(blogId)
-
   const response = await axios.post(`${baseUrl}/${blogId}/comments`, content, getConfig())
   return response.data
 }
@@ -42,4 +39,11 @@ const remove = async (id) => {
   return response.data
 }
 
-export default { getAll, create, update, remove, getBlogCommentsByBlogId, addBlogComment }
+export default { 
+  getAll, 
+  create, 
+  update, 
+  remove, 
+  getBlogCommentsByBlogId, 
+  addBlogComment 
+}
