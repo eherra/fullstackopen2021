@@ -149,10 +149,10 @@ const resolvers = {
         })
       }
 
-      const authorAddingNeeded = authors.find(a => a.name === args.author)
-      if (authorAddingNeeded) {
+      const isAuthorExisting = authors.find(a => a.name === args.author)
+      if (!isAuthorExisting) {
         const author = { name: args.author, id: uuid()}
-        authors.concat(author)
+        authors = authors.concat(author)
       }
       
       const book = { ...args, id: uuid() }
