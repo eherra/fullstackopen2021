@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    ports:
+     - 3456:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes: 
+      - ./backend/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./backend/mongo_data:/data/db
+    container_name: phonemongo
+
+  backend-dev:
+    image: backend-dev
+    build:
+      context: ./backend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3001:3001
+    environment: 
+      - MONGODB_URL=mongodb://the_username:the_password@phonemongo:27017/the_database
+      - PORT=3001
+    volumes:
+      - ./backend/:/usr/src/app
+    depends_on:
+      - mongo
+    container_name: backend-dev
+
+  frontend-dev:
+    image: frontend-dev
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/:/usr/src/app
+    depends_on:
+      - backend-dev
+    container_name: frontend-dev

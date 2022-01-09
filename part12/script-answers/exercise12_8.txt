@@ -1,0 +1,67 @@
+Script started on Mon Jan  3 17:31:01 2022
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+[?1034hbash-3.2$ docker exec -it todo-backend_mongo_1 bash
+]0;root@408e1dd9ef78: /root@408e1dd9ef78:/# mogon   ngo -u root -p eam  xample
+MongoDB shell version v5.0.5
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e263a46b-3da7-416b-8d8d-e962e4037ad9") }
+MongoDB server version: 5.0.5
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting: 
+        2022-01-03T15:05:58.434+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs[3G[Jshow dbs[11G
+admin         0.000GB
+config        0.000GB
+local         0.000GB
+the_database  0.000GB
+> use the_a[3G[Juse the_[11Ga[3G[Juse the_[11Gdatabase[3G[Juse the_database[19G
+switched to db the_database
+> show sco[3G[Jshow sc[10G[3G[Jshow s[9G[3G[Jshow [8Gcollections[3G[Jshow collections[19G
+collection
+todos
+> db.todos.find({})[3G[Jdb.todos.find({})[20G
+{ "_id" : ObjectId("61d310d5c148a51c3f9136af"), "text" : "Write code", "done" : true }
+{ "_id" : ObjectId("61d310d5c148a51c3f9136b0"), "text" : "yoyo", "done" : true }
+{ "_id" : ObjectId("61d3116f1bef4f262cb65e2b"), "text" : "heck", "done" : false, "__v" : 0 }
+{ "_id" : ObjectId("61d31676ce2f91818417ca3d"), "text" : "testing", "done" : false }
+> dbt[3G[Jdb[5G.todos.find[3G[Jdb.todos.fin[15G[3G[Jdb.todos.fi[14G[3G[Jdb.todos.f[13G[3G[Jdb.todos.[12G[3G[Jdb.todos[11G[3G[Jdb.todo[10G[3G[Jdb.tod[9G[3G[Jdb.to[8G[3G[Jdb.t[7Godos.insertOne({t[3G[Jdb.todos.insertOne({[23G"text": adi[3G[Jdb.todos.insertOne({"text": ad[33Gding one"[3G[Jdb.todos.insertOne({"text": adding one"[41G[3G[Jdb.todos.insertOne({"text": adding one"[40G[3G[Jdb.todos.insertOne({"text": adding one"[39G[3G[Jdb.todos.insertOne({"text": adding one"[38G[3G[Jdb.todos.insertOne({"text": adding one"[37G[3G[Jdb.todos.insertOne({"text": adding one"[36G[3G[Jdb.todos.insertOne({"text": adding one"[35G[3G[Jdb.todos.insertOne({"text": adding one"[34G[3G[Jdb.todos.insertOne({"text": adding one"[33G[3G[Jdb.todos.insertOne({"text": adding one"[32G[3G[Jdb.todos.insertOne({"text": adding one"[31G[3G[Jdb.todos.insertOne({"text": adding one"[30G[3G[Jdb.todos.insertOne({"text":" adding one"[31G[3G[Jdb.todos.insertOne({"text":" adding one"[32G[3G[Jdb.todos.insertOne({"text":" adding one"[31G[3G[Jdb.todos.insertOne({"text": adding one"[30G[3G[Jdb.todos.insertOne({"text": adding one"[29G[3G[Jdb.todos.insertOne({"text": adding one"[30G[3G[Jdb.todos.insertOne({"text": adding one"[31G[3G[Jdb.todos.insertOne({"text": "adding one"[32G[3G[Jdb.todos.insertOne({"text": "adding one"[33G[3G[Jdb.todos.insertOne({"text": "adding one"[34G[3G[Jdb.todos.insertOne({"text": "adding one"[35G[3G[Jdb.todos.insertOne({"text": "adding one"[36G[3G[Jdb.todos.insertOne({"text": "adding one"[37G[3G[Jdb.todos.insertOne({"text": "adding one"[38G[3G[Jdb.todos.insertOne({"text": "adding one"[39G[3G[Jdb.todos.insertOne({"text": "adding one"[40G[3G[Jdb.todos.insertOne({"text": "adding one"[41G[3G[Jdb.todos.insertOne({"text": "adding one"[42G[3G[Jdb.todos.insertOne({"text": "adding one"[43G, done: [3G[Jdb.todos.insertOne({"text": "adding one", done:[50G[3G[Jdb.todos.insertOne({"text": "adding one", done[49G[3G[Jdb.todos.insertOne({"text": "adding one", don[48G[3G[Jdb.todos.insertOne({"text": "adding one", do[47G[3G[Jdb.todos.insertOne({"text": "adding one", d[46G[3G[Jdb.todos.insertOne({"text": "adding one", [45G"done" [3G[Jdb.todos.insertOne({"text": "adding one", "done"[51G: false});[3G[Jdb.todos.insertOne({"text": "adding one", "done": false});[61G
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("61d31719ce5b39bbb4552971")
+}
+> db.todos.find({})[3G[Jdb.todos.find({})[20G
+{ "_id" : ObjectId("61d310d5c148a51c3f9136af"), "text" : "Write code", "done" : true }
+{ "_id" : ObjectId("61d310d5c148a51c3f9136b0"), "text" : "yoyo", "done" : true }
+{ "_id" : ObjectId("61d3116f1bef4f262cb65e2b"), "text" : "heck", "done" : false, "__v" : 0 }
+{ "_id" : ObjectId("61d31676ce2f91818417ca3d"), "text" : "testing", "done" : false }
+{ "_id" : ObjectId("61d31719ce5b39bbb4552971"), "text" : "adding one", "done" : false }
+> exit[3G[Jexit[7G
+bye
+]0;root@408e1dd9ef78: /root@408e1dd9ef78:/# exit
+exit
+bash-3.2$ exit
+exit
+
+Script done on Mon Jan  3 17:32:55 2022
